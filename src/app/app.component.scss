@@ -1,0 +1,19 @@
+:host {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  
+    .app-todo-header {
+      align-self: center;
+      display: flex;
+      gap: 10px;
+    }
+  
+    .app-todo-container {
+      flex: 1 1 auto;
+      margin-top: -25px;
+      padding: 30px;
+    }
+  }
+  
