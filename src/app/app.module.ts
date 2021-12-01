@@ -30,21 +30,7 @@ import { TodoListModule } from './todo-list/todo-list.module';
     TodoListModule,
     AddTodoModule,
     EditTodoModule,
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
-    StoreRouterConnectingModule.forRoot({
-      stateKey: 'router',
-    }),
     BrowserAnimationsModule,
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
-    StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([]),  
-    EntityDataModule.forRoot({}),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -54,6 +40,15 @@ import { TodoListModule } from './todo-list/todo-list.module';
         strictStateSerializability: true,
       },
     }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+    }),
+    EffectsModule.forRoot([]),
+    EntityDataModule.forRoot({}),
   ],
   providers: [],
   bootstrap: [AppComponent],
