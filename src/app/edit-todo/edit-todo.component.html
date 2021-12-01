@@ -1,1 +1,14 @@
-<p>edit-todo works!</p>
+<mat-card class="app-edit-todo mat-elevation-z8">
+    <mat-card-header>
+        <mat-card-title>
+            <div [contenteditable]="true" [formControl]="titleControl">
+                {{titleControl.value | json}}
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div [contenteditable]="true" [formControl]="contentControl">
+            {{contentControl.value | json}}
+        </div>
+    </mat-card-content>
+</mat-card>

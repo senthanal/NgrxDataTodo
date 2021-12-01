@@ -10,7 +10,11 @@ import { TodoListComponent } from './todo-list.component';
 import { TodosResolver } from './todos-resolver';
 
 const entityMetadata: EntityMetadataMap = {
-    Todo: {}
+    Todo: {
+        entityDispatcherOptions: {
+            optimisticUpdate: true
+        }
+    }
 };
 
 const pluralNames = { Todo: 'Todos' };
