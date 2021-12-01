@@ -1,1 +1,10 @@
-<p>add-todo works!</p>
+<form [formGroup]="form">
+    <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Content</mat-label>
+        <textarea matInput formControlName="content"></textarea>
+    </mat-form-field>
+</form>
