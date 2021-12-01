@@ -4,7 +4,7 @@ import {
   Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { filter, first, Observable, tap } from 'rxjs';
 import { TodoEntityService } from './todo-entity.service';
 
 @Injectable()
@@ -15,6 +15,14 @@ export class TodosResolver implements Resolve<boolean> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.todoEntityService.getAll().pipe(map((todos) => !!todos));
+    return this.todoEntityService.loaded$.pipe(
+      tap((loaded) => {
+        if (!loaded) {
+          this.todoEntityService.getAll();
+        }
+      }),
+      filter((loaded) => !!loaded),
+      first()
+    );
   }
 }
