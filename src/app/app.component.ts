@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter, map, Observable, pluck } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, first, map, Observable, pluck, tap } from 'rxjs';
+import { TodoEntityService } from './todo-list/todo-entity.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,11 @@ export class AppComponent implements OnInit {
   isAddView$!: Observable<boolean>;
   isEditView$!: Observable<boolean>;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private todoEntityService: TodoEntityService
+  ) {}
 
   ngOnInit(): void {
     this.isListView$ = this.router.events.pipe(
@@ -35,5 +40,24 @@ export class AppComponent implements OnInit {
     );
   }
 
-  deleteTodo(): void {}
+  deleteTodo(): void {
+    const id = this.route.snapshot.children[0].paramMap.get('id');
+    this.todoEntityService.entities$
+      .pipe(
+        map(
+          (entities) =>
+            entities.filter((entity) => {
+              return entity.id === (id ? parseInt(id, 10) : -1);
+            })[0]
+        ),
+        tap((todo) => {
+          if (todo) {
+            this.todoEntityService.delete(todo);
+            this.router.navigateByUrl('/');
+          }
+        }),
+        first()
+      )
+      .subscribe();
+  }
 }
