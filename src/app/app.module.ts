@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EntityDataModule } from '@ngrx/data';
+import { DefaultDataServiceConfig, EntityDataModule } from '@ngrx/data';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
@@ -17,6 +17,15 @@ import { AppComponent } from './app.component';
 import { metaReducers, reducers } from './app.reducer';
 import { EditTodoModule } from './edit-todo/edit-todo.module';
 import { TodoListModule } from './todo-list/todo-list.module';
+
+export const API_ENDPOINT = environment.production
+  ? 'https://todo.senthanal.at'
+  : 'http://localhost:3000';
+
+const defaultDataServiceConfig: DefaultDataServiceConfig = {
+  root: API_ENDPOINT,
+  timeout: 3000, // request timeout
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,7 +59,9 @@ import { TodoListModule } from './todo-list/todo-list.module';
     EffectsModule.forRoot([]),
     EntityDataModule.forRoot({}),
   ],
-  providers: [],
+  providers: [
+    { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -79,8 +79,7 @@
               "browserTarget": "NgrxDataTodo:build:production"
             },
             "development": {
-              "browserTarget": "NgrxDataTodo:build:development",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "NgrxDataTodo:build:development"
             }
           },
           "defaultConfiguration": "development"
